@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup /home
+
+[Service]
+ExecStart=/root/bin/backup.sh
+

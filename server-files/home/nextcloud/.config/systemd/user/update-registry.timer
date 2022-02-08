@@ -1,0 +1,11 @@
+[Unit]
+Description=Rebuild desktop image nightly
+
+[Timer]
+OnCalendar=Mon..Sun, *-*-* 03:00:00
+Unit=update-registry.service
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

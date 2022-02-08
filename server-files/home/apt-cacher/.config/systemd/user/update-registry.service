@@ -1,0 +1,5 @@
+[Unit]
+Description=Rebuild desktop image
+
+[Service]
+ExecStart=/home/apt-cacher/timer-scripts/update-registry.sh

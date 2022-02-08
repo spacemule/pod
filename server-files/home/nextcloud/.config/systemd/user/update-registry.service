@@ -1,0 +1,5 @@
+[Unit]
+Description=Rebuild desktop image
+
+[Service]
+ExecStart=/home/nextcloud/timer-scripts/update-registry.sh

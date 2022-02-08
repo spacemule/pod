@@ -1,0 +1,23 @@
+server {
+	listen 80;
+	server_name dav.spacemule.net;
+	return 301 https://$host$request_uri;
+}
+
+server {
+	listen 443 ssl http2;
+	server_name dav.spacemule.net;
+	
+	ssl_certificate 	/etc/nginx/ssl/radicale.crt;
+	ssl_certificate_key 	/etc/nginx/ssl/radicale.key;
+
+	location / {
+    		proxy_pass           http://localhost:5232/;
+    		#proxy_set_header     X-Script-Name /;
+    		proxy_set_header     X-Forwarded-For $proxy_add_x_forwarded_for;
+    		proxy_set_header     X-Remote-User $remote_user;
+    		proxy_set_header     Host $http_host;
+    		auth_basic           "Radicale - Password Required";
+    		auth_basic_user_file /etc/nginx/htpasswd;
+	}
+}

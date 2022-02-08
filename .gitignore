@@ -1,0 +1,14 @@
+dhparam.pem
+htpasswd
+.htpasswd
+**/dmz/ca
+**/dmz/wg
+**/dmz/nginx/ssl
+*.env
+sql.bak
+.bash_history
+env.txt
+ssh_host_ed25519_key
+**/.cache
+*.key
+**/.local/share/systemd/timers

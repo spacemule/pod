@@ -1,0 +1,10 @@
+server {
+	listen 80;
+	server_name test2.spacemule.net;
+	root /var/www/test;
+	location / {
+		try_files $uri $uri/index.html;
+		autoindex off;
+
+	}
+}

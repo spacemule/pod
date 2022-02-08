@@ -1,0 +1,4 @@
+/ns-noah 10.0.1.2(rw,sync,subtree_check,root_squash)
+/ns-noah/Paperless/In 10.0.1.2(rw,sync,subtree_check,root_squash)
+/ns-noah/Music 10.0.1.2(rw,sync,subtree_check,root_squash)
+/ns-noah/Remote 10.0.1.2(rw,sync,subtree_check,root_squash)

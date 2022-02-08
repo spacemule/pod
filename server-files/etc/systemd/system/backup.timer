@@ -1,0 +1,11 @@
+[Unit]
+Description=Backup /home daily
+
+[Timer]
+OnCalendar=Mon..Sun, *-*-* 07:00:00
+Unit=backup.service
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

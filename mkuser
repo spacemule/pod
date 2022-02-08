@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ssh root@pod.local "useradd -m -d /home/${1} -U ${1}"
+
+cp -r ~/Development/pod-users/skel ~/Development/pod-users/server-files/home/${1}
+
+~/Development/pod-users/push.sh
+
+ssh root@pod.local "chown -R ${1}:${1} /home/${1}"
+
+exit 0

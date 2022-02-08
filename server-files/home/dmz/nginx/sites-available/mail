@@ -1,0 +1,77 @@
+upstream php-suse {
+    server 10.0.2.2:9090;
+}
+
+
+server {
+        listen 80;
+        server_name mail.spacemule.net;
+        location / {
+        return 301 https://$host$request_uri;
+        }
+}
+
+server {
+    listen 10.0.0.4:443 ssl http2 proxy_protocol;
+    listen 10.0.2.100:443 ssl http2;
+
+    real_ip_header proxy_protocol;
+    set_real_ip_from 10.0.0.2/32;
+    set_real_ip_from 10.0.2.0/24;
+    
+    server_name mail.spacemule.net;
+    
+    ssl_certificate         /etc/nginx/ssl/mail.crt;
+    ssl_certificate_key     /etc/nginx/ssl/mail.key;
+    include ssl-params;
+
+    root /var/www/html/mail;
+    index index.php;
+    charset utf-8;
+
+    client_max_body_size 50M;
+
+    location ^~ /data {
+      deny all;
+    }
+
+    location / {
+      try_files $uri $uri/ index.php;
+    }
+
+    # Assets cache control
+    # --------------------------------------
+    location ~* \.(?:html|xml|json)$ {
+      expires -1;
+    }
+
+    location ~* \.(?:css|js)$ {
+      expires 7d;
+      add_header Pragma public;
+      add_header Cache-Control "public";
+    }
+
+    location ~* \.(?:gif|jpe?g|png|ico|otf|eot|svg|ttf|woff|woff2)$ {
+      expires 30d;
+      log_not_found off;
+      add_header Pragma public;
+      add_header Cache-Control "public";
+    }
+
+    # PHP Backend
+    # --------------------------------------
+    location ~* \.php$ {
+      #try_files $uri =404;
+      include fastcgi_params;
+      #fastcgi_split_path_info ^(.+\.php)(/.*)$;
+      #fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+      #fastcgi_param PATH_INFO $fastcgi_path_info;
+      #fastcgi_param HTTP_PROXY "";
+      fastcgi_index index.php;
+      fastcgi_pass php-suse;
+      #fastcgi_intercept_errors on;
+      #fastcgi_request_buffering off;
+      #fastcgi_param REMOTE_ADDR $http_x_real_ip;
+    }
+
+}

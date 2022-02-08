@@ -1,0 +1,8 @@
+/backup/home/dmz/html/**
+/backup/home/nextcloud/db/**
+/backup/home/dmz/nginx/cache/**
+dhparam.pem
+audit.log
+nextcloud.log
+/backup/home/apt-cacher/apt-cacher/**
+**/.local/share/containers/**

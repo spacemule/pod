@@ -1,0 +1,23 @@
+server {
+	#listen 80;
+	listen 80 default_server;
+	server_name _;
+
+	#server_name download.opensuse.org;
+	
+	location / {
+                allow 10.0.2.0/24;
+                allow 10.42.0.0/24;
+		deny all;
+
+    		proxy_pass 		http://10.0.2.2:3128;
+	        proxy_set_header Host $host;
+        	proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        	proxy_set_header X-Forwarded-Proto $scheme;
+       	 	proxy_set_header Request-URI $request_uri;
+
+        	proxy_redirect off;
+	}
+}
+
